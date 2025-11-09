@@ -11,7 +11,7 @@ main_background = pygame.image.load("./images/leaderboard/main_page.png")
 left_button = pygame.image.load('./images/last_left_arrow.png')
 lb_rect = pygame.Rect((31,509),left_button.get_size())
 
-def render_leaderboard(screen):
+def render_leaderboard(screen,player):
     screen.blit(main_background, (0,0))
     screen.blit(left_button, lb_rect)
 

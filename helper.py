@@ -1,5 +1,5 @@
 import pygame
-
+import Player
 def format_money(money):
     if(money >= 1000000000):
         return f"{money/1000000000:.1f}b"
@@ -9,9 +9,16 @@ def format_money(money):
         return f"{money/1000:.1f}k"
     return str(money)
 
-def display_money(screen,player):
+def display_money(screen,player:Player):
     font = pygame.font.SysFont("ByteBounce", 80)
     money = font.render("$" + format_money(player.money),True,(60,83,39))
     money_rect = money.get_rect(center = (162,80))
+
+    screen.blit(money,money_rect)
+
+def display_text(screen,text,size,color,font,location):
+    font = pygame.font.SysFont(font, size)
+    money = font.render(text,True,color)
+    money_rect = money.get_rect(center = location)
 
     screen.blit(money,money_rect)
