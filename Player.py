@@ -3,11 +3,12 @@ property_multiplier = {"pink": 1.1, "orange":1.2, "red":1.3, "yellow":1.4, "gree
 
 class Player:
     def __init__(self):
-        self.money = 0
+        self.money = 2000
         self.base_roll = 10
         self.base_go = 200
         self.properties = {} #{'color_number':owned_state,...}  color_number = pink_1, owned_state = 0 (owned), 1 (1 classroom), etc up to 4 classrooms
         self.buffs = [] #double dice, prop_disc, 
+        self.position = 32
         pass
 
     def update_property(self,property:str): #property = str "pink_1"
@@ -32,7 +33,8 @@ class Player:
         else:
             self.base_go *= 1.5
     
-    def update_buffs(self,buff:str): #buff = "double_dice","prop_disc"
-        if buff not in self.buffs:
+    def update_buffs(self,buff:str,price:int): #buff = "hertz","hunt","blanton"
+        if buff not in self.buffs and self.money >= price:
             self.buffs.append(buff)
+            self.money -= price
 
