@@ -8,6 +8,7 @@ class Player:
         self.base_go = 200
         self.properties = {} #{'color_number':owned_state,...}  color_number = pink_1, owned_state = 0 (owned), 1 (1 classroom), etc up to 4 classrooms
         self.buffs = [] #double dice, prop_disc, 
+        self.position = 32
         pass
 
     def update_property(self,property:str): #property = str "pink_1"

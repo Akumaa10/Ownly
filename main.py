@@ -19,6 +19,7 @@ clock = pygame.time.Clock()
 
 running = True
 
+
 player = Player()
 button_render = render_board(screen,player) #default render
 
