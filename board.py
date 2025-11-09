@@ -25,7 +25,6 @@ def clear_screen(screen):
 
 clock = pygame.time.Clock()
 board = pygame.image.load("./images/board/board.png")
-sprite = pygame.image.load("./images/board/sprite.png")
 board_rect = board.get_rect(topleft=(0,159))
 moneybar = pygame.image.load("./images/board/moneybar.png")
 right_button = pygame.image.load('./images/board/right.png')
@@ -66,7 +65,16 @@ upgrade_rect = upgrade.get_rect(topleft=(110,404))
 buy = pygame.image.load("./images/buy.png")
 buy_rect = buy.get_rect(topleft=(110,404))
 
+imgs = {
+    "hat":pygame.image.load('./images/board/hat.png'),
+    "shoe":pygame.image.load('./images/board/shoe.png'),
+    "ship":pygame.image.load('./images/board/ship.png'),
+    "iron":pygame.image.load('./images/board/iron.png'),
+    "horse":pygame.image.load('./images/board/horse.png'),
+    "car":pygame.image.load('./images/board/car.png'),
+    "wheel_barrel":pygame.image.load('./images/board/wheel_barrel.png'),
 
+}
 
 # Flag to prevent starting a new dice roll while one is running
 dice_running = False
@@ -260,7 +268,10 @@ def checksquare(screen):
 
 def render_board(screen, Player):
     global player
+    global sprite
     player = Player
+    imgs[player.piece] = pygame.transform.scale(imgs[player.piece], (25, 25))
+    sprite = imgs[player.piece]
     screen.blit(board, (0,159))   
     screen.blit(navbar,(0,502))
     screen.blit(moneybar, (0,0))
