@@ -5,6 +5,8 @@ from Player import Player
 
 from buffs import render_buff
 from board import render_board
+from boosts import render_boosts
+from leaderboard import render_leaderboard
 
 pygame.init()
 SCREEN_W, SCREEN_H = 324, 582
@@ -26,6 +28,10 @@ def nav_bar_manager(page):
         button_render = render_board(screen)
     elif(page == "buffs"):
         button_render = render_buff(screen)
+    elif(page == "boosts"):
+        button_render = render_boosts(screen)
+    elif(page == "leaderboard"):
+        button_render = render_leaderboard(screen)
 
 while running:
     for event in pygame.event.get():

@@ -7,13 +7,13 @@ def clear_screen(screen):
     pygame.display.flip()
     gc.collect()
 
-main_background = pygame.image.load("./images/buffs/main_page.png")
+main_background = pygame.image.load("./images/boosts/main_page.png")
 right_button = pygame.image.load('./images/right_arrow.png')
 left_button = pygame.image.load('./images/left_arrow.png')
 lb_rect = pygame.Rect((34,519),left_button.get_size())
 rb_rect = pygame.Rect((259,519),right_button.get_size())
 
-def render_buff(screen):
+def render_boosts(screen):
     screen.blit(main_background, (0,0))
     screen.blit(right_button, rb_rect)
     screen.blit(left_button, lb_rect)
@@ -21,9 +21,9 @@ def render_buff(screen):
 
     def button_clicked(screen,event_pos):
         if(lb_rect.collidepoint(event_pos)):
-            return "board"
+            return "buffs"
         if(rb_rect.collidepoint(event_pos)):
-            return "boosts"
+            return "leaderboard"
         return None
 
     return button_clicked
