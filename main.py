@@ -5,6 +5,9 @@ from Player import Player
 
 from buffs import render_buff
 from board import render_board
+from boosts import render_boosts
+from leaderboard import render_leaderboard
+from profile import render_profile
 
 pygame.init()
 SCREEN_W, SCREEN_H = 324, 582
