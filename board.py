@@ -4,6 +4,7 @@ import pygame_gui
 import os
 import random
 
+player = None
 click = []
 #Jail 33:(50, 420)
 positionsxy = {1:(225, 429), 2:(200, 429), 3:(175, 429), 4:(150, 429), 5:(125, 429), 6:(100, 429), 7:(75, 429), 8:(30, 439), 
@@ -11,7 +12,6 @@ positionsxy = {1:(225, 429), 2:(200, 429), 3:(175, 429), 4:(150, 429), 5:(125, 4
                 17:(75, 210), 18:(100, 210), 19:(125, 210), 20:(150, 210), 21:(175, 210), 22:(200, 210), 23:(225, 210), 24:(259, 210),
                 25: (259, 245), 26:(259, 270),27: (259, 295),28:(259, 320), 29:(259, 345), 30:(259, 370), 31:(259, 395), 32:(259, 429)
                 }
-
 def clear_screen(screen):
     screen.fill((255, 255, 255))
     pygame.display.flip()
@@ -61,6 +61,7 @@ def playdiceone(roll1, screen):
     print("rolling")
     for i in range(15):
         screen.blit(board,(0,159))
+        screen.blit(sprite, positionsxy[player.position])
         num = random.randint(1,6)
         if num == 1:
             screen.blit(one,(110, 280) )
@@ -83,7 +84,7 @@ def playdiceone(roll1, screen):
 # def rolldice(screen):
 #     global currentspace
 #     global playermoney
-#     playdice(roll1, screen)
+#     playdiceone(roll1, screen)
 
 #     roll1 = random.randint(1,6)
 #     roll2 = 0
@@ -99,11 +100,13 @@ def playdiceone(roll1, screen):
 
 
 
-def render_board(screen):
-
+def render_board(screen, Player):
+    global player
+    player = Player
     screen.blit(board, (0,159))   
     screen.blit(moneybar, (0,0))
     screen.blit(navbar,(0,502))
+    screen.blit(sprite, positionsxy[player.position])
     screen.blit(right_button, rb_rect)
     screen.blit(left_button, lb_rect)
     return button_clicked
