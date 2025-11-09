@@ -13,7 +13,7 @@ left_button = pygame.image.load('./images/left_arrow.png')
 lb_rect = pygame.Rect((34,519),left_button.get_size())
 rb_rect = pygame.Rect((259,519),right_button.get_size())
 
-def render_board(screen):
+def render_board(screen,player):
     screen.blit(main_background, (0,0))
     screen.blit(right_button, rb_rect)
     screen.blit(left_button, lb_rect)

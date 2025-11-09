@@ -20,21 +20,21 @@ clock = pygame.time.Clock()
 running = True
 
 player = Player()
-button_render = render_board(screen) #default render
+button_render = render_board(screen,player) #default render
 
 def nav_bar_manager(page):
     global button_render
     if(page == "board"):
         print("rendering the board")
-        button_render = render_board(screen)
+        button_render = render_board(screen,player)
     elif(page == "buffs"):
-        button_render = render_buff(screen)
+        button_render = render_buff(screen,player)
     elif(page == "boosts"):
-        button_render = render_boosts(screen)
+        button_render = render_boosts(screen,player)
     elif(page == "leaderboard"):
-        button_render = render_leaderboard(screen)
+        button_render = render_leaderboard(screen,player)
     elif(page == "profile"):
-        button_render = render_profile(screen)
+        button_render = render_profile(screen,player)
 
 while running:
     for event in pygame.event.get():
