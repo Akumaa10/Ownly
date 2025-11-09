@@ -45,7 +45,7 @@ rect = {
     "5_bar":pygame.Rect((101,235),imgs["5_bar"].get_size())
 }
 
-boost_price = {1:300,2:600,3:1200,4:2400,5:"Sold Out"}
+boost_price = {1:300,2:600,3:1200,4:2400,5:"MAXXED!!!"}
 
 def render_boosts(screen,player):
     def button_clicked(screen,event_pos):

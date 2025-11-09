@@ -8,6 +8,7 @@ from board import render_board
 from boosts import render_boosts
 from leaderboard import render_leaderboard
 from profile import render_profile
+from helper import display_text
 
 pygame.init()
 SCREEN_W, SCREEN_H = 324, 582
@@ -21,6 +22,7 @@ running = True
 
 
 player = Player()
+player.start_time = pygame.time.get_ticks()
 button_render = render_board(screen,player) #default render
 
 def nav_bar_manager(page):
