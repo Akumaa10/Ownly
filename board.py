@@ -3,9 +3,10 @@ import gc
 import pygame_gui
 import os
 import random
+from helper import display_money
+from Player import *
 
 player = None
-click = []
 #Jail 33:(50, 420)
 positionsxy = {1:(225, 429), 2:(200, 429), 3:(175, 429), 4:(150, 429), 5:(125, 429), 6:(100, 429), 7:(75, 429), 8:(30, 439), 
                9:(37, 395), 10: (37, 370), 11:(37, 345), 12: (37, 320), 13:(37, 295), 14:(37, 270), 15:(37, 245), 16:(37, 210),
@@ -46,19 +47,13 @@ def button_clicked(screen,event_pos):
     elif(lb_rect.collidepoint(event_pos)):
         return "profile" 
     elif(board_rect.collidepoint(event_pos)):
-        clock.tick(1000)
-        if click == []:
-            click.append(1)
-            playdiceone(one,screen)
-        else:
-            return None
-
+        rolldice(screen)
         return None
     
 
 def playdiceone(roll1, screen):
     global click
-    print("rolling")
+    position = player.position
     for i in range(15):
         screen.blit(board,(0,159))
         screen.blit(sprite, positionsxy[player.position])
@@ -77,27 +72,89 @@ def playdiceone(roll1, screen):
             screen.blit(six,(110, 280) )
         clock.tick(10)
         pygame.display.flip()
+    
+    screen.blit(board,(0,159))
     screen.blit(roll1,(110, 280))
-    clock.tick(300)
-    click.pop()
+    screen.blit(sprite, positionsxy[position])
 
-# def rolldice(screen):
-#     global currentspace
-#     global playermoney
-#     playdiceone(roll1, screen)
+def playdicetwo(roll1, roll2, screen):
+    global click
+    position = player.position
+    for i in range(15):
+        screen.blit(board,(0,159))
+        screen.blit(sprite, positionsxy[player.position])
+        num1 = random.randint(1,6)
+        num2 = random.randint(1,6)
+        if num1 == 1:
+            screen.blit(one,(75, 280) )
+        elif num1 == 2:
+            screen.blit(two,(75, 280) )
+        elif num1 == 3:
+            screen.blit(three,(75, 280) )
+        elif num1 == 4:
+            screen.blit(four,(75, 280) )
+        elif num1 == 5:
+            screen.blit(five,(75, 280) )
+        elif num1== 6:
+            screen.blit(six,(75, 280) )
+        if num2 == 1:
+            screen.blit(one,(155, 280))
+        elif num2 == 2:
+            screen.blit(two,(155, 280))
+        elif num2 == 3:
+            screen.blit(three,(155, 280))
+        elif num2 == 4:
+            screen.blit(four,(155, 280))
+        elif num2 == 5:
+            screen.blit(five,(155, 280))
+        elif num2 == 6:
+            screen.blit(six,(155, 280))
+        clock.tick(10)
+        pygame.display.flip()
+    screen.blit(board,(0,159))
+    screen.blit(roll1,(75, 280))
+    screen.blit(roll2,(155, 280))
+    screen.blit(sprite, positionsxy[position])
 
-#     roll1 = random.randint(1,6)
-#     roll2 = 0
-#     if buffs["doubledice"]:
-#         roll2 = random.randint(1,6)
-#     currentspace += roll1 + roll2
-#     playermoney += (roll1 + roll2) * moneybase
-#     landedonproperty()
-#     print(currentspace, "Current space")
-#     if currentspace > 40:
-#         currentspace %= 40
-#         playermoney += 200 + collecttuituion()
+def getrollvalue(roll):
+    if roll == 1:
+        return one
+    elif roll == 2:
+        return two
+    elif roll == 3:
+        return three
+    elif roll == 4:
+        return four
+    elif roll == 5:
+        return five
+    elif roll == 6:
+        return six
 
+
+def rolldice(screen):
+    roll_raw_num = random.randint(1,6)
+    rollimg = getrollvalue(roll_raw_num)
+    roll2_raw_num = 0
+    if "doubledice" in player.buffs:
+        roll2_raw_num = random.randint(1,6)
+        roll2img = getrollvalue(roll2_raw_num)
+        playdicetwo(rollimg, roll2img, screen)
+        player.roll(roll_raw_num+ roll2_raw_num)
+    else:
+        playdiceone(rollimg, screen)
+        player.roll(roll_raw_num)
+    new_pos = roll_raw_num + roll2_raw_num + player.position
+    player.position += roll_raw_num + roll2_raw_num
+    if player.position > 40:
+        player.position %= 40
+        player.pass_go()
+    screen.blit(board, (0,159))
+    screen.blit(sprite, positionsxy[new_pos])
+    if "doubledice" in player.buffs:
+        screen.blit(rollimg,(75, 280))
+        screen.blit(roll2img,(155, 280))
+    else:
+        screen.blit(rollimg,(110, 280))
 
 
 def render_board(screen, Player):
@@ -109,5 +166,6 @@ def render_board(screen, Player):
     screen.blit(sprite, positionsxy[player.position])
     screen.blit(right_button, rb_rect)
     screen.blit(left_button, lb_rect)
+    display_money(screen, player)
     return button_clicked
 
