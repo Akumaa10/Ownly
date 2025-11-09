@@ -1,7 +1,6 @@
 import pygame
 import gc
 import pygame_gui
-from board import render_board
 
 def clear_screen(screen):
     screen.fill((255, 255, 255))
