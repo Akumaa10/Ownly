@@ -13,7 +13,7 @@ property_value = {"brown":{0:250,1:300,2:360,3:576,4:691},
 
 
 
-boosts_multipler = {"roll":{1:10,2:30,3:90,4:270,5:810},"go":{1:1.1,2:1.25,3:1.5,4:1.75,5:2}}
+boosts_multipler = {"roll":{1:10,2:30,3:90,4:270,5:810},"go":{1:1,2:1.25,3:1.5,4:1.75,5:2}}
 
 class Player:
     def __init__(self):
@@ -22,7 +22,7 @@ class Player:
         self.base_go = 200
         self.properties = {} #{'color_number':owned_state,...}  color_number = pink_1, owned_state = 0 (owned), 1 (1 classroom), etc up to 4 classrooms
         self.buffs = [] #double dice, prop_disc, 
-        self.position = 32
+        self.position = 0
         self.boosts = {"roll":1,"go":1} 
         self.piece = "hat"
         self.start_time = 0
@@ -39,7 +39,10 @@ class Player:
     def pass_go(self): #user has passed go
         prop_total = 0
         for color in self.properties:
-            prop_total += property_value[color.split("_")[0]][self.properties[color]]
+            coloramount = property_value[color.split("_")[0]][self.properties[color]]
+            print(color, "color")
+            print(property_value[color.split("_")[0]][self.properties[color]], "coloramount")
+            prop_total += coloramount
         
         self.money += (self.base_go + prop_total) * boosts_multipler["go"][self.boosts["go"]]
 
