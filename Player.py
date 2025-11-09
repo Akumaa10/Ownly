@@ -1,21 +1,28 @@
-property_value = {"pink":{0:250,1:300,2:360,3:576,4:691},
-                  "orange":{0:1250,1:1350,2:1500,3:1800,4:2160},
-                  "red":{0:2500,1:3000,2:3600,3:4320,4:5180},
-                  "yellow":{0:3750,1:4500,2:5400,3:6480,4:7780},
-                  "green":{0:12500,1:15000,2:18000,3:21600,4:25900},
-                  "blue":{0:25000,1:30000,2:36000,3:43200,4:51800},
-                  "brown":{0:125000,1:150000,2:180000,3:216000,4:259000},
-                  "cyan":{0:250000,1:300000,2:360000,3:432000,4:5180000}}
-boosts_multipler = {"roll":{1:10,2:30,3:90,4:270,5:810},"go":{1:1.1,2:1.25,3:1.5,4:1.75,5:2}}
+property_value = {"brown":{0:250,1:300,2:360,3:576,4:691},
+                  "cyan":{0:1250,1:1350,2:1500,3:1800,4:2160},
+                  "pink":{0:2500,1:3000,2:3600,3:4320,4:5180},
+                  "orange":{0:3750,1:4500,2:5400,3:6480,4:7780},
+                  "red":{0:12500,1:15000,2:18000,3:21600,4:25900},
+                  "yellow":{0:25000,1:30000,2:36000,3:43200,4:51800},
+                  "green":{0:125000,1:150000,2:180000,3:216000,4:259000},
+                  "blue":{0:250000,1:300000,2:360000,3:432000,4:5180000},
+                  "commons":{0:1500, 1:18000, 2:21600, 3: 25900, 4:31100},
+                  "su":{0:2000, 1:2400, 2:2880, 3:3460, 4:4150},
+                  "alumni":{0:175000, 1:210000, 2:252000, 3:302000, 4:363000},
+                  "lock":{0:26300, 1:31500, 2:37800, 3:45400, 4:54400}}
+
+
+
+boosts_multipler = {"roll":{1:10,2:30,3:90,4:270,5:810},"go":{1:1,2:1.25,3:1.5,4:1.75,5:2}}
 
 class Player:
     def __init__(self):
-        self.money = 100000000
+        self.money = 10000
         self.base_roll = boosts_multipler["roll"][1]
         self.base_go = 200
         self.properties = {} #{'color_number':owned_state,...}  color_number = pink_1, owned_state = 0 (owned), 1 (1 classroom), etc up to 4 classrooms
         self.buffs = [] #double dice, prop_disc, 
-        self.position = 32
+        self.position = 0
         self.boosts = {"roll":1,"go":1} 
         self.piece = "hat"
         self.start_time = 0
@@ -32,7 +39,10 @@ class Player:
     def pass_go(self): #user has passed go
         prop_total = 0
         for color in self.properties:
-            prop_total += property_value[color.split("_")[0]][self.properties[color]]
+            coloramount = property_value[color.split("_")[0]][self.properties[color]]
+            print(color, "color")
+            print(property_value[color.split("_")[0]][self.properties[color]], "coloramount")
+            prop_total += coloramount
         
         self.money += (self.base_go + prop_total) * boosts_multipler["go"][self.boosts["go"]]
 
