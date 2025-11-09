@@ -214,6 +214,9 @@ def rolldice(screen):
     roll2_raw_num = 0
     if "hertz" in player.buffs:
         roll2_raw_num = random.randint(1,6)
+        if "hunt" in player.buffs:
+            if(roll_raw_num == roll2_raw_num):
+                roll_raw_num += 3
         roll2img = getrollvalue(roll2_raw_num)
         playdicetwo(rollimg, roll2img, screen)
         player.roll(roll_raw_num+ roll2_raw_num)
