@@ -7,6 +7,7 @@ from buffs import render_buff
 from board import render_board
 from boosts import render_boosts
 from leaderboard import render_leaderboard
+from profile import render_profile
 
 pygame.init()
 SCREEN_W, SCREEN_H = 324, 582
@@ -19,7 +20,7 @@ clock = pygame.time.Clock()
 running = True
 
 player = Player()
-button_render = render_buff(screen) #default render
+button_render = render_board(screen) #default render
 
 def nav_bar_manager(page):
     global button_render
@@ -32,6 +33,8 @@ def nav_bar_manager(page):
         button_render = render_boosts(screen)
     elif(page == "leaderboard"):
         button_render = render_leaderboard(screen)
+    elif(page == "profile"):
+        button_render = render_profile(screen)
 
 while running:
     for event in pygame.event.get():
